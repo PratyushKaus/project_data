@@ -1,0 +1,63 @@
+- id: TC_001
+  title: Positive 1 – Speed 15 / Seatbelt Open
+  steps:
+    - Set vehicle speed to 15 km/h
+    - Ensure seat-belt is unlatched (Open)
+    - Observe seat-belt warning chime
+  expected_result: Chime sounds
+
+- id: TC_002
+  title: Positive 2 – Speed 20 / Seatbelt Open
+  steps:
+    - Set vehicle speed to 20 km/h
+    - Ensure seat-belt is unlatched (Open)
+    - Observe seat-belt warning chime
+  expected_result: Chime sounds
+
+- id: TC_003
+  title: Negative 1 – Speed 5 / Seatbelt Open
+  steps:
+    - Set vehicle speed to 5 km/h
+    - Ensure seat-belt is unlatched (Open)
+    - Observe seat-belt warning chime
+  expected_result: No chime
+
+- id: TC_004
+  title: Negative 2 – Speed 15 / Seatbelt Closed
+  steps:
+    - Set vehicle speed to 15 km/h
+    - Fasten seat-belt (Closed)
+    - Observe seat-belt warning chime
+  expected_result: No chime
+
+- id: TC_005
+  title: Boundary 1 – Speed 10 / Seatbelt Open
+  steps:
+    - Set vehicle speed to 10 km/h
+    - Ensure seat-belt is unlatched (Open)
+    - Observe seat-belt warning chime
+  expected_result: No chime
+
+- id: TC_006
+  title: Boundary 2 – Speed 10 / Seatbelt Closed
+  steps:
+    - Set vehicle speed to 10 km/h
+    - Fasten seat-belt (Closed)
+    - Observe seat-belt warning chime
+  expected_result: No chime
+
+- id: TC_007
+  title: Boundary 3 – Speed 11 / Seatbelt Open
+  steps:
+    - Set vehicle speed to 11 km/h
+    - Ensure seat-belt is unlatched (Open)
+    - Observe seat-belt warning chime
+  expected_result: Chime sounds
+
+- id: TC_008
+  title: Boundary 4 – Speed 11 / Seatbelt Closed
+  steps:
+    - Set vehicle speed to 11 km/h
+    - Fasten seat-belt (Closed)
+    - Observe seat-belt warning chime
+  expected_result: No chime

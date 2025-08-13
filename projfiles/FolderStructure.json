@@ -1,0 +1,26 @@
+{
+  "baselib": {
+    "__init__.py": "",
+    "canoe_utils.py": "Low-level CANoe connection and control functions: start_measurement(), stop_measurement(), read_signal(signal_name), send_message(message_name, data).",
+    "dspace_utils.py": "Low-level dSPACE automation functions: send_signal(signal_name, value), read_signal(signal_name), load_model(model_path), start_model(), stop_model().",
+    "assertions.py": "Assertion helpers: assert_signal_equal(actual, expected), assert_signal_greater(actual, threshold), assert_signal_in_range(actual, min_val, max_val).",
+    "fixtures.py": "Pytest fixtures for initializing and tearing down CANoe and dSPACE sessions.",
+    "helpers": {
+      "__init__.py": "",
+      "engine_helpers.py": "High-level helper functions for engine-related tests: start_engine(), stop_engine(), verify_engine_running().",
+      "diagnostics_helpers.py": "High-level helper functions for diagnostics: send_dtc_request(dtc_code), verify_dtc_present(dtc_code).",
+      "safety_helpers.py": "High-level helper functions for safety features: activate_abs(), verify_airbag_signal()."
+    }
+  },
+  "tests": {
+    "engine": {
+      "test_engine_start.py": "Example pytest test using helpers.engine_helpers.start_engine() and verify_engine_running()."
+    },
+    "diagnostics": {
+      "test_dtc_check.py": "Example pytest test using helpers.diagnostics_helpers.send_dtc_request() and verify_dtc_present()."
+    }
+  },
+  "docs": {
+    "readme.md": "Documentation for baselib, helpers, and example usage in test scripts."
+  }
+}
