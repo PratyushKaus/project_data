@@ -1,9 +1,11 @@
 """
 Assertion helpers for validating automotive test conditions.
 """
-from typing import Union, Optional
+from typing import Union, Optional, Any, TypeVar
 
-def assert_signal_equal(actual: Union[float, int, bool], expected: Union[float, int, bool]) -> None:
+Number = TypeVar('Number', int, float)
+
+def assert_signal_equal(actual: Any, expected: Any) -> None:
     """
     Assert that two signal values are equal.
     
@@ -16,7 +18,7 @@ def assert_signal_equal(actual: Union[float, int, bool], expected: Union[float, 
     """
     assert actual == expected, f"Expected {expected}, got {actual}"
 
-def assert_signal_greater(actual: Union[float, int], threshold: Union[float, int]) -> None:
+def assert_signal_greater(actual: Number, threshold: Number) -> None:
     """
     Assert that a signal value is greater than a threshold.
     
@@ -29,7 +31,7 @@ def assert_signal_greater(actual: Union[float, int], threshold: Union[float, int
     """
     assert actual > threshold, f"Expected value > {threshold}, got {actual}"
 
-def assert_signal_in_range(actual: Union[float, int], min_val: Union[float, int], max_val: Union[float, int]) -> None:
+def assert_signal_in_range(actual: Number, min_val: Number, max_val: Number) -> None:
     """
     Assert that a signal value is within a specified range.
     
@@ -44,7 +46,6 @@ def assert_signal_in_range(actual: Union[float, int], min_val: Union[float, int]
     assert min_val <= actual <= max_val, \
         f"Expected value in range [{min_val}, {max_val}], got {actual}"
 
-# Seatbelt Warning System Specific Assertions
 def assert_chime_status(actual: bool, expected: bool, context: Optional[str] = None) -> None:
     """
     Assert that the warning chime status matches the expected state.
@@ -62,15 +63,35 @@ def assert_chime_status(actual: bool, expected: bool, context: Optional[str] = N
         message = f"{context}: {message}"
     assert actual == expected, message
 
-def assert_speed_threshold(speed: float, threshold: float = 10.0) -> None:
+def assert_speed_warning_threshold(speed: float, seatbelt_fastened: bool, warning_active: bool) -> None:
     """
-    Assert that the vehicle speed is above or below the warning threshold.
+    Assert that the warning system correctly responds to speed and seatbelt state.
     
     Args:
         speed: Current vehicle speed in km/h
-        threshold: Speed threshold for warning system (default 10.0 km/h)
+        seatbelt_fastened: Whether seatbelt is fastened
+        warning_active: Whether warning is currently active
         
     Raises:
-        AssertionError: If speed is not in the correct range for the test
+        AssertionError: If warning state is incorrect for given speed and seatbelt state
     """
-    pass
+    SPEED_THRESHOLD = 10.0  # From test cases
+    
+    should_warn = speed > SPEED_THRESHOLD and not seatbelt_fastened
+    assert warning_active == should_warn, \
+        f"At {speed} km/h with seatbelt {'fastened' if seatbelt_fastened else 'unfastened'}, " \
+        f"warning should be {'active' if should_warn else 'inactive'}"
+
+def assert_engine_state(speed: float, engine_running: bool) -> None:
+    """
+    Assert that engine state is correct for the current speed.
+    
+    Args:
+        speed: Current vehicle speed in km/h
+        engine_running: Whether engine is currently running
+        
+    Raises:
+        AssertionError: If engine state is incorrect for given speed
+    """
+    if speed > 0:
+        assert engine_running, f"Engine should be running when speed is {speed} km/h"
